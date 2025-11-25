@@ -1,3 +1,12 @@
+@media (max-width: 768px) {
+  .nav-list {
+    flex-direction: column;
+  }
+  .hero-content {
+    text-align: center;
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
