@@ -1,40 +1,64 @@
-/* ---------------------------------------------------- */
-/* ## 🎨 VARIÁVEIS DE CORES E FONTES */
-/* ---------------------------------------------------- */
+/*
+|--------------------------------------------------------------------------
+| CSS Baseado nas Melhores Práticas e Design Moderno
+|--------------------------------------------------------------------------
+| 
+| Este CSS foi atualizado com design mais profissional, correção de overflow 
+| e um menu hamburguer robusto e em tela cheia (fullscreen) para mobile.
+|
+*/
+
+/* --- 🎨 VARIÁVEIS DE COR E FONTE --- */
 :root {
-    --color-primary: #007bff; /* Azul vibrante para destaque */
-    --color-secondary: #6c757d; /* Cinza para texto secundário */
-    --color-background: #ffffff; /* Fundo principal claro (para cards e header) */
-    --color-surface: #f8f9fa; /* Fundo de seção/card claro */
-    --color-text-dark: #212529; /* Texto principal escuro */
-    --color-text-light: #ffffff; /* Texto claro */
-    --color-border: #dee2e6; /* Linhas e bordas */
-    --color-accent: #0056b3; /* Azul mais escuro para hover */
-    --color-body-bg: #e6f0ff; /* Azul clarinho para o fundo do body (Landing Page) */
-    --font-family-sans: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    /* Cores */
+    --color-primary: #007bff; /* Azul vibrante para destaque/botões */
+    --color-secondary: #6f42c1; /* Roxo para ênfase (ex: ícones de tecnologia) */
+    --color-accent: #20c997; /* Verde para sucesso/qualidade */
+    
+    --color-background-dark: #121212; /* Fundo principal escuro */
+    --color-background-light: #1e1e1e; /* Seções e cards */
+    
+    --color-text-dark: #ffffff; /* Texto claro principal */
+    --color-text-light: #a0a0a0; /* Texto secundário (parágrafos, descrições) */
+    
+    /* Fontes */
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Saira ExtraCondensed', sans-serif;
+    
+    /* Sombras */
+    --shadow-primary: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 10px 25px rgba(0, 123, 255, 0.25); /* Sombra mais refinada */
 }
 
-/* ---------------------------------------------------- */
-/* ## 📏 RESET E ESTILOS GERAIS */
-/* ---------------------------------------------------- */
-*, *::before, *::after {
+/* --- 📝 RESET BÁSICO --- */
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: var(--font-family-sans);
-    line-height: 1.6;
+    font-family: var(--font-primary);
+    background-color: var(--color-background-dark);
     color: var(--color-text-dark);
-    background-color: var(--color-body-bg); /* Fundo azul claro para toda a página */
-    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    /* CORREÇÃO CRÍTICA: Evita rolagem lateral (overflow horizontal) */
+    overflow-x: hidden; 
+}
+
+/* NOVO: Trava o scroll do conteúdo principal quando o menu mobile está aberto */
+body.menu-open {
+    overflow: hidden;
 }
 
 a {
     text-decoration: none;
     color: var(--color-primary);
-    transition: color 0.3s ease;
+    transition: color 0.3s;
 }
 
 a:hover {
@@ -45,443 +69,373 @@ ul {
     list-style: none;
 }
 
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-section {
-    /* Mantém o fundo branco nas outras seções */
-    background-color: var(--color-background); 
-    padding: 80px 20px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-#landing-page {
-    /* A landing page é estilizada separadamente para ocupar a tela e ter o fundo do body */
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-    border-radius: 0;
-}
-
-h1, h2, h3, h4 {
-    margin-bottom: 1rem;
+/* --- 🏷️ TIPOGRAFIA GERAL --- */
+h1, h2, h3 {
+    font-family: var(--font-secondary);
     font-weight: 700;
+    margin-bottom: 0.5em;
     line-height: 1.2;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 4rem; /* Mais impactante */
     color: var(--color-text-dark);
 }
 
-h2 {
-    font-size: 2.25rem;
+h1 span {
     color: var(--color-primary);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 2.75rem; /* Mais impactante */
+    color: var(--color-primary); /* Destaque em H2 */
+    border-bottom: none; /* Estilo mais limpo */
+    display: block; 
+    margin-bottom: 1.5rem;
+    /* Centraliza apenas se for o primeiro elemento da seção ou explicitamente centralizado */
+    text-align: left; 
+}
+
+/* Centralizando H2s de seções */
+#skills h2, #projects h2, #work h2:first-of-type {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h3 {
     font-size: 1.75rem;
-    color: var(--color-text-dark);
-    margin-top: 1.5rem;
+    color: var(--color-text-dark); /* Corrigido para ser visível em cards escuros */
+    margin-bottom: 1rem;
 }
 
 p {
-    margin-bottom: 1rem;
-    color: var(--color-text-dark);
-}
-
-/* Estilo para Botões Padrão */
-.buttons a, .project-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center; /* Centraliza o texto e ícone nos botões */
-    padding: 12px 25px; /* Aumentar o padding para botões maiores */
-    border-radius: 8px; /* Mais arredondado */
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.95rem; /* Um pouco maior */
-    transition: all 0.3s ease;
-    min-width: 180px; /* Largura mínima para os botões */
-    text-align: center; /* Garante que o texto dentro do botão esteja centralizado */
-    margin: 10px;
-}
-
-/* Botão Primário (Entre em Contato) */
-.buttons a.nav-link {
-    background-color: var(--color-primary);
     color: var(--color-text-light);
-    border: 2px solid var(--color-primary);
+    margin-bottom: 1.5rem;
 }
 
-.buttons a.nav-link:hover {
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
-    color: var(--color-text-light);
+main section {
+    padding: 100px 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Botão Secundário (Ver Projetos/Baixar CV) */
-.project-button {
-    background-color: transparent;
-    color: var(--color-primary);
-    border: 2px solid var(--color-border);
-}
-
-.project-button:hover {
-    background-color: rgba(0, 123, 255, 0.05);
-    border-color: var(--color-primary);
-}
-
-
-/* ---------------------------------------------------- */
-/* ## 🧭 HEADER E NAVEGAÇÃO */
-/* ---------------------------------------------------- */
-
+/* --- ⚙️ HEADER E NAVEGAÇÃO --- */
 header {
-    background-color: var(--color-background);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    position: sticky;
+    background-color: var(--color-background-dark);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Sombra mais forte */
+    position: fixed; 
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
 }
 
 #container-menu {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 15px 20px;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo Link */
+.logo-link {
+    font-size: 1.6rem; 
+    font-weight: 900;
+    color: var(--color-text-dark);
+    transition: color 0.3s;
+    z-index: 1001; /* Fica acima do menu mobile */
+}
+
+.logo-link:hover {
+    color: var(--color-primary);
+}
+
+/* Checkbox Escondido */
+#menu-toggle {
+    display: none;
+}
+
+/* Ícone Hamburguer (Visível apenas em Mobile) */
+.menu-hamburguer {
+    display: none; 
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--color-primary);
+    z-index: 1001;
+    transition: color 0.3s;
 }
 
 #container-menu nav ul {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 35px;
 }
 
-#container-menu nav ul li:first-child a {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-primary);
-}
-
-#container-menu nav ul li .nav-link {
+.nav-link {
     color: var(--color-text-dark);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
 }
 
-#container-menu nav ul li .nav-link:hover {
-    color: var(--color-primary);
-    background-color: rgba(0, 123, 255, 0.05);
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    left: 0;
+    bottom: -5px;
+    transition: width 0.3s ease-in-out;
 }
 
-#container-menu nav ul li:first-child {
-    margin-right: auto;
-}
-#container-menu nav ul li:not(:first-child) {
-    margin-left: 10px;
+.nav-link:hover::after {
+    width: 100%;
 }
 
-
-/* ---------------------------------------------------- */
-/* ## 🏠 LANDING PAGE (VISUAL DA IMAGEM ATUALIZADO) */
-/* ---------------------------------------------------- */
-
+/* --- 🏠 LANDING PAGE --- */
 #landing-page {
     display: flex;
     align-items: center;
-    justify-content: center; 
-    min-height: 100vh;
-    gap: 80px; /* Espaçamento entre as colunas */
-    max-width: 1400px; 
-    padding: 20px;
+    justify-content: space-between;
+    padding-top: 150px; 
+    min-height: 90vh;
+    gap: 80px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 #landing-page .my {
-    max-width: 700px; /* Largura do bloco de texto */
+    max-width: 50%;
     text-align: left;
 }
 
-#landing-page h1 {
-    font-size: 3.5rem;
-    line-height: 1.1; 
-    margin-bottom: 0.5rem;
-    color: var(--color-text-dark);
-}
-
-#landing-page h1 span {
-    color: var(--color-primary);
-}
-
-#landing-page h2 {
-    font-size: 1.5rem;
-    color: var(--color-primary); 
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-}
-
-#landing-page .my p {
-    font-size: 1rem; 
-    color: var(--color-secondary);
-    margin-bottom: 2.5rem; 
-}
-
-/* Container dos botões e redes sociais */
-#landing-page .central-column { 
+/* Container dos botões */
+.action-area .buttons nav ul {
     display: flex;
-    flex-direction: column;
-    align-items: center; 
-    gap: 20px; 
-}
-
-/* Botões - Layout Vertical e Alinhamento */
-#landing-page .buttons nav ul {
-    flex-direction: column; 
-    align-items: center; 
-    gap: 20px; /* Aumentado para 20px para separar mais os botões! */
-    margin-bottom: 0; 
-}
-
-#landing-page .buttons nav ul li a {
-    display: flex;
-    justify-content: center;
-    width: auto; 
-    min-width: 180px; 
-}
-
-
-/* Icones de Redes Sociais - Ajuste de Layout */
-#landing-page .networkings {
-    margin-top: 10px; 
-}
-
-#landing-page .networkings nav ul {
-    justify-content: center; 
+    flex-wrap: wrap;
     gap: 15px;
+    margin-top: 20px;
 }
 
-#landing-page .networkings a {
-    color: var(--color-secondary);
-    padding: 10px;
-    border: none;
-    border-radius: 50%;
-    display: flex;
+/* Estilo geral para botões (aplicado a links) */
+.project-button, 
+.action-area .buttons a {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 44px; 
-    height: 44px; 
-    background-color: var(--color-background); 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
-}
-
-#landing-page .networkings a:hover {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid var(--color-primary);
+    background-color: transparent;
     color: var(--color-primary);
-    background-color: rgba(0, 123, 255, 0.05);
 }
 
+.project-button:hover,
+.action-area .buttons a:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background-dark);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
 
-/* 🖼️ Efeito de Card e Sombra na Imagem */
+.project-button.primary-button {
+    background-color: var(--color-primary);
+    color: var(--color-background-dark);
+    border: 2px solid var(--color-primary);
+}
+
+.project-button.primary-button:hover {
+    background-color: transparent;
+    color: var(--color-primary);
+}
+
+.button-icon {
+    margin-right: 8px;
+}
+
+/* Estilos para a figure (container da imagem e redes sociais) */
 #landing-page figure {
     flex-shrink: 0;
-    padding: 20px; 
+    padding: 25px;
     border-radius: 20px; 
-    background-color: var(--color-background); 
-    box-shadow: 0 15px 30px rgba(0, 123, 255, 0.1), 0 5px 15px rgba(0, 123, 255, 0.05);
-    transform: rotate(0deg); 
+    background-color: var(--color-background-light);
+    box-shadow: var(--shadow-primary);
+    transform: rotate(2deg);
     transition: all 0.5s ease;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 25px; 
+    min-width: 380px;
 }
 
 #landing-page figure:hover {
-    transform: rotate(0deg) translateY(-20px);
-    box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
+    transform: rotate(0deg) translateY(-10px);
+    box-shadow: var(--shadow-hover);
 }
 
 .profile-img {
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
     border-radius: 15px; 
     object-fit: cover;
-    border: none;
+    border: 5px solid var(--color-primary); 
     box-shadow: none;
     display: block;
-    transform: rotate(-2deg); 
+    transform: rotate(-4deg); 
 }
 
-/* ---------------------------------------------------- */
-/* ## 👤 SOBRE MIM */
-/* ---------------------------------------------------- */
+/* Estilos para as redes sociais DENTRO da figure */
+#landing-page .networkings {
+    width: 100%; 
+    text-align: center;
+}
 
+#landing-page .networkings nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 0;
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    color: var(--color-primary);
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.social-icon:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 123, 255, 0.4);
+}
+
+/* --- 🧑‍💻 SEÇÃO SOBRE MIM --- */
 #about {
-    margin-top: 20px;
-}
-
-#about > div {
-    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
 }
 
 #about h2 {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-#about p {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-#about h3 {
-    text-align: center;
-    color: var(--color-primary);
-}
-
-/* Lista de Informações Rápidas */
-#about > div:nth-child(3) ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-top: 20px;
-    padding: 20px 0;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-}
-
-#about > div:nth-child(3) ul li {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-text-dark);
-}
-
-/* Seção de Qualidades (4 itens) */
-#about > div:nth-child(4) ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 40px;
-}
-
-#about > div:nth-child(4) ul li {
-    padding: 20px;
-    background-color: var(--color-surface);
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
-}
-
-#about > div:nth-child(4) ul li:hover {
-    transform: translateY(-5px);
-}
-
-#about > div:nth-child(4) ul li h4 {
-    color: var(--color-primary);
-    margin-bottom: 5px;
-    font-size: 1.2rem;
-}
-
-
-/* ---------------------------------------------------- */
-/* ## 🛠️ HABILIDADES */
-/* ---------------------------------------------------- */
-
-#skills h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-#skills > div:first-child p {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-#skills {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    grid-template-rows: auto 1fr; 
-}
-
-/* A primeira div (título e descrição) deve ocupar toda a largura */
-#skills > div:first-child {
     grid-column: 1 / -1;
 }
 
-#skills > div:not(:first-child) {
-    background-color: var(--color-surface);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+#about h3 {
+    color: var(--color-secondary);
+}
+
+#about div:nth-child(3) ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+#about div:nth-child(4) ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#about div:nth-child(4) ul li {
+    background-color: var(--color-background-light);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-primary);
+    transition: transform 0.3s;
+}
+
+#about div:nth-child(4) ul li:hover {
+    transform: translateY(-5px);
+}
+
+.icon-about {
+    color: var(--color-primary); 
+    margin-right: 10px;
+}
+
+.icon-quality {
+    margin-right: 8px;
+    color: var(--color-accent);
+}
+
+/* --- 🛠️ SEÇÃO HABILIDADES (Skills) --- */
+#skills h2 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#skills > p {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+}
+
+#skills > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin-top: 30px;
 }
 
 #skills h3 {
-    color: var(--color-primary);
-    border-bottom: 2px solid var(--color-primary);
-    padding-bottom: 10px;
+    border-left: 5px solid var(--color-primary);
+    padding-left: 10px;
     margin-bottom: 20px;
-    text-align: center;
+    color: var(--color-text-dark);
 }
 
 #skills ul li {
+    background-color: var(--color-background-light);
+    color: var(--color-text-dark);
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px dashed var(--color-border);
+    font-weight: 500;
 }
 
-#skills ul li:last-child {
-    border-bottom: none;
-}
-
-/* Adicionando as porcentagens via pseudo-elementos */
-#skills ul li::after {
+.icon-skill-title {
+    margin-right: 10px;
     color: var(--color-primary);
-    font-weight: 600;
 }
 
-/* Porcentagens Frontend */
-#skills > div:nth-child(2) ul li:nth-child(1)::after { content: "90%"; }
-#skills > div:nth-child(2) ul li:nth-child(2)::after { content: "85%"; }
-#skills > div:nth-child(2) ul li:nth-child(3)::after { content: "80%"; }
-#skills > div:nth-child(2) ul li:nth-child(4)::after { content: "95%"; }
-#skills > div:nth-child(2) ul li:nth-child(5)::after { content: "90%"; }
-#skills > div:nth-child(2) ul li:nth-child(6)::after { content: "95%"; }
-
-/* Porcentagens Backend */
-#skills > div:nth-child(3) ul li:nth-child(1)::after { content: "90%"; }
-#skills > div:nth-child(3) ul li:nth-child(2)::after { content: "85%"; }
-#skills > div:nth-child(3) ul li:nth-child(3)::after { content: "80%"; }
-#skills > div:nth-child(3) ul li:nth-child(4)::after { content: "75%"; }
-#skills > div:nth-child(3) ul li:nth-child(5)::after { content: "70%"; }
-
-/* Porcentagens Design & Ferramentas */
-#skills > div:nth-child(4) ul li:nth-child(1)::after { content: "90%"; }
-#skills > div:nth-child(4) ul li:nth-child(2)::after { content: "80%"; }
-#skills > div:nth-child(4) ul li:nth-child(3)::after { content: "85%"; }
-#skills > div:nth-child(4) ul li:nth-child(4)::after { content: "70%"; }
-#skills > div:nth-child(4) ul li:nth-child(5)::after { content: "65%"; }
-#skills > div:nth-child(4) ul li:nth-child(6)::after { content: "75%"; }
+.icon-skill {
+    margin-right: 15px;
+    color: var(--color-secondary); 
+}
 
 
-/* ---------------------------------------------------- */
-/* ## 💻 PROJETOS */
-/* ---------------------------------------------------- */
-
+/* --- 💻 SEÇÃO PROJETOS --- */
 #projects h2 {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#projects > div:first-child p {
+#projects > div:first-of-type {
     text-align: center;
-    margin-bottom: 4rem;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
 }
 
 .projects-list {
@@ -491,308 +445,371 @@ header {
     margin-bottom: 40px;
 }
 
-.projects-list > div {
-    background-color: var(--color-background);
-    padding: 25px;
+.project-card {
+    background-color: var(--color-background-light);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-primary);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 123, 255, 0.2);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border-top: 5px solid var(--color-primary);
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 15px;
 }
 
-.projects-list h3 {
+.project-card h3 {
+    font-size: 1.5rem;
     color: var(--color-text-dark);
-    font-size: 1.4rem;
-    margin-bottom: 10px;
 }
 
-.projects-list p {
-    flex-grow: 1; 
-}
-
-/* Lista de Tecnologias dos Projetos */
-.projects-list > div ul {
+.project-card ul {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
+    margin: 15px 0;
 }
 
-.projects-list > div ul li {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    opacity: 0.8;
+.project-card ul li {
+    background-color: var(--color-secondary);
+    color: var(--color-text-dark);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
 }
 
-.projects-list a.project-button {
-    margin-top: 15px;
-    margin-right: 10px;
-    border-color: var(--color-primary);
+.project-card-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
 }
 
+.project-card-actions a {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.9rem;
+    padding: 10px;
+}
+
+.project-icon {
+    margin-right: 8px;
+    color: var(--color-primary);
+}
+
+.icon-tech-stack {
+    margin-right: 5px;
+    color: var(--color-text-dark); 
+}
+
+/* Botão "Ver Todos no Github" */
 #projects > div:last-child {
     text-align: center;
 }
 
-
-/* ---------------------------------------------------- */
-/* ## 📧 CONTATO (WORK) */
-/* ---------------------------------------------------- */
-
+/* --- 📞 SEÇÃO CONTATO --- */
 #work {
-    text-align: center;
-    background-color: var(--color-surface);
-    padding: 80px 20px;
-    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 60px;
 }
 
 #work h2 {
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-}
-
-#work > div:first-child p {
-    max-width: 700px;
-    margin: 0 auto 4rem;
-}
-
-#work h3 {
-    font-size: 1.5rem;
-    color: var(--color-text-dark);
-    margin-bottom: 20px;
+    grid-column: 1 / -1;
 }
 
 #work h4 {
     color: var(--color-primary);
-    font-size: 1.1rem;
-    margin-top: 20px;
-    margin-bottom: 5px;
+    font-weight: 600;
+    margin-top: 15px;
 }
 
 #work a {
     display: block;
     margin-bottom: 10px;
-}
-
-#work address {
-    font-style: normal;
-    margin-top: 5px;
-    margin-bottom: 40px;
-}
-
-/* Botão do formulário de contato */
-#work a.project-button {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
-    border: none;
-    margin: 20px auto 40px;
-    display: inline-block;
-}
-
-#work a.project-button:hover {
-    background-color: var(--color-accent);
-}
-
-#work > div:last-child ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-top: 20px;
-}
-
-#work > div:last-child ul li p {
-    font-weight: 500;
+    font-size: 1.1rem;
     color: var(--color-text-dark);
 }
 
+#work a:hover {
+    color: var(--color-primary);
+}
 
-/* ---------------------------------------------------- */
-/* ## 🦶 FOOTER */
-/* ---------------------------------------------------- */
-
-footer {
-    background-color: var(--color-text-dark);
+#work address {
     color: var(--color-text-light);
-    padding: 60px 20px 20px;
+    font-style: normal;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+#work > div:last-child {
+    background-color: var(--color-background-light);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-primary);
+}
+
+#work > div:last-child h2 {
+    color: var(--color-text-dark);
+    border-bottom: none;
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+#work > div:last-child ul {
+    margin-top: 20px;
+}
+
+#work > div:last-child ul li {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-light);
+    margin-bottom: 10px;
+}
+
+.icon-contact {
+    margin-right: 10px;
+    color: var(--color-primary);
+}
+
+.icon-advantage {
+    margin-right: 10px;
+    color: var(--color-accent);
+}
+
+/* --- 🦶 FOOTER --- */
+footer {
+    background-color: var(--color-background-light);
+    padding: 40px 25px 20px 25px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 footer h2 {
-    color: var(--color-primary);
     font-size: 1.2rem;
+    color: var(--color-text-dark);
     margin-bottom: 15px;
+    border-bottom: none;
+    display: block;
 }
 
 footer p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
-footer a {
-    color: rgba(255, 255, 255, 0.7);
-    display: block;
-    padding: 5px 0;
-}
-
-footer a:hover {
-    color: var(--color-primary);
-}
-
-/* Redes sociais do footer */
-.menu-networkings ul {
+footer .menu-networkings ul {
     display: flex;
     gap: 15px;
     margin-top: 15px;
 }
 
-.menu-networkings ul li a {
+footer .menu-networkings .social-icon {
+    width: 35px;
+    height: 35px;
+    border: 1px solid var(--color-text-light);
     color: var(--color-text-light);
 }
 
-.menu-networkings ul li a:hover {
+footer .menu-networkings .social-icon:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background-dark);
+}
+
+footer nav ul li a {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+footer nav ul li a:hover {
     color: var(--color-primary);
+}
+
+.icon-footer-link {
+    margin-right: 8px;
+    color: var(--color-text-light);
 }
 
 footer small {
     grid-column: 1 / -1;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 30px;
     padding-top: 20px;
-    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-light);
+    font-size: 0.85rem;
 }
 
+/* --- 📱 RESPONSIVIDADE (Menu Hamburguer e Layout) --- */
 
-/* ---------------------------------------------------- */
-/* ## 📱 RESPONSIVIDADE */
-/* ---------------------------------------------------- */
+/* Esconde o menu hamburguer em telas grandes */
+@media (min-width: 769px) {
+    .menu-hamburguer {
+        display: none !important;
+    }
+}
 
-@media (max-width: 992px) {
-    /* Ajuste da Landing Page para Mobile */
+/* Tablet e Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    
+    /* Menu Hamburguer: Mostra o ícone */
+    .menu-hamburguer {
+        display: block;
+    }
+
+    /* MENU MOBILE: FIXO, FULLSCREEN E PROFISSIONAL */
+    #container-menu nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--color-background-dark);
+        box-shadow: none;
+        /* Inicialmente o menu fica fora da tela (direita) */
+        transform: translateX(100%); 
+        transition: transform 0.4s ease-in-out;
+        padding-top: 80px; /* Espaço para o header (logo e ícone) */
+        z-index: 999;
+    }
+
+    /* Estilo da lista de links no menu mobile */
+    #container-menu nav ul {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+        padding: 40px 0;
+    }
+    
+    #container-menu nav ul li a {
+        padding: 20px;
+        font-size: 1.2rem;
+        display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Funcionalidade do Menu Hamburguer (Abre o menu: desliza para a esquerda) */
+    #menu-toggle:checked ~ nav {
+        transform: translateX(0);
+    }
+    
+    /* Opcional: Efeito no ícone de hamburguer quando aberto (muda para X) */
+    #menu-toggle:checked ~ .menu-hamburguer i::before {
+        content: "\f00d"; 
+    }
+
+    /* Layouts principais */
     #landing-page {
-        flex-direction: column-reverse;
+        flex-direction: column;
         text-align: center;
         gap: 40px;
-        min-height: auto;
         padding-top: 100px;
+        min-height: auto;
     }
     
     #landing-page .my {
         max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
     }
 
-    #landing-page h1 {
-        font-size: 3rem;
-    }
-    
-    #landing-page h2 {
-        text-align: center;
+    #landing-page .action-area {
+        align-items: center;
     }
 
-    #landing-page .buttons nav ul,
-    #landing-page .networkings nav ul {
-        justify-content: center; /* Centralizar botões e redes em mobile */
-        align-items: center; /* Alinhar itens ao centro */
-    }
-    
-    #landing-page .buttons nav ul li a {
-        width: auto; /* Remover width: 100% para não ficarem tão largos */
-        min-width: 200px;
+    #landing-page .action-area .buttons nav ul {
+        justify-content: center;
     }
 
+    /* Imagem */
     #landing-page figure {
-        transform: rotate(0deg); /* Remover rotação em mobile */
-        margin-bottom: 30px;
+        transform: rotate(0deg); 
+        min-width: auto;
+        width: 100%;
+        max-width: 380px;
     }
     
     .profile-img {
-        transform: rotate(0deg); /* Remover rotação em mobile */
+        transform: rotate(0deg); 
         width: 250px;
         height: 250px;
     }
 
-    /* Outras Seções */
-    section {
-        padding: 60px 20px;
+    /* Sobre Mim */
+    #about {
+        grid-template-columns: 1fr;
+    }
+    
+    #about div:nth-child(3) ul {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Contato */
+    #work {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Footer */
+    footer {
+        grid-template-columns: 1fr 1fr;
     }
 
+    footer div:first-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Smartphone (max-width 600px) */
+@media (max-width: 600px) {
+    /* Tipografia */
     h1 {
         font-size: 2.5rem;
     }
-
+    
     h2 {
         font-size: 2rem;
     }
-}
 
-@media (max-width: 768px) {
-    #container-menu nav ul {
-        flex-direction: column;
-        align-items: flex-start;
+    main section {
+        padding: 60px 15px;
     }
 
-    #container-menu nav ul li:first-child {
+    /* Botões */
+    .action-area .buttons nav ul {
+        flex-direction: column;
         width: 100%;
-        text-align: center;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    #container-menu nav ul li:not(:first-child) {
-        margin-left: 0;
-        margin-right: 10px;
-    }
-
-    #skills {
-        grid-template-columns: 1fr;
-    }
-
-    #about > div:nth-child(3) ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    #about > div:nth-child(4) ul {
-        grid-template-columns: 1fr;
     }
     
-    .projects-list {
-        grid-template-columns: 1fr;
+    .action-area .buttons a {
+        width: 100%;
+        justify-content: center;
     }
     
+    /* Imagem */
+    #landing-page figure {
+        padding: 15px;
+    }
+    .profile-img {
+        width: 200px;
+        height: 200px;
+    }
+
+    /* Footer */
     footer {
         grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    footer h2 {
-        text-align: center;
-    }
-    
-    .menu-networkings ul {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .buttons a, .project-button {
-        width: 100%;
-        justify-content: center;
-        margin-bottom: 10px;
-    }
-
-    #landing-page .buttons nav ul {
-        flex-direction: column;
-        gap: 10px;
     }
 }
